@@ -38,6 +38,14 @@ Start the server
   npm run dev
 ```
 
+Run the automated tests
+
+```bash
+  npm test
+```
+
+Use `npm run test:watch` while developing.
+
 
 ## Screenshots
 
@@ -57,7 +65,7 @@ Start the server
 
 - Add pagination or infinite scrolling
 
-- Add automated tests
+- Expand automated coverage as new features are added
 
 
 
@@ -67,5 +75,4 @@ Start the server
 What did you learn while building this project?
  - Redux toolkit
  - Redux Query toolkit
-
 

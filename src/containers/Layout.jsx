@@ -27,11 +27,11 @@ const Layout = () => {
                                 <Carousel.Item className="home-layout__carousel-item" key={movie.id}>
                                     <img
                                         className="d-block w-100"
-                                        src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-                                        alt="Movie Poster"
+                                        src={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
+                                        alt={`${movie.title ?? movie.original_title} backdrop`}
                                     />
                                     <Carousel.Caption className="home-layout__carousel-caption">
-                                        <h1 className="home-layout__movie-title">{movie.original_title}</h1>
+                                        <h1 className="home-layout__movie-title">{movie.title ?? movie.original_title}</h1>
                                         <p className="home-layout__sub-title">{formatGenresByID(movie.genre_ids)}</p>
                                         <h3 className="home-layout__text">{movie.overview}</h3>             
                                     </Carousel.Caption>

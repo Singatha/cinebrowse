@@ -40,7 +40,10 @@ export const mediaApi = createApi({
       query: (tvID) => `tv/${tvID}/similar?api_key=${API_KEY}`,
     }),
     getSearchMulti: builder.query({
-      query: (keyword) => `search/multi?query=${keyword}&api_key=${API_KEY}`,
+      query: (keyword) => ({
+        url: 'search/multi',
+        params: { query: keyword, api_key: API_KEY },
+      }),
     }),
   }),
 })

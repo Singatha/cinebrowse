@@ -1,4 +1,9 @@
 .no-results {
+    background-color: $color-bunting-default;
+    color: $color-white;
+    min-height: 40vh;
+    padding: 60px 20px;
+
     &__text {
         font-family: $font-family;
         font-size: 1.563rem;

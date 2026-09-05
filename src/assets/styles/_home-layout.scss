@@ -4,6 +4,11 @@
 
     &__carousel-item {
         height: 100vh;
+
+        img {
+            height: 100%;
+            object-fit: cover;
+        }
     }
 
     &__carousel-caption {
@@ -37,5 +42,20 @@
         display: block;
         padding: 20px 30px;
         text-decoration: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .home-layout {
+        &__carousel-item {
+            height: 65vh;
+        }
+
+        &__text {
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+        }
     }
 }

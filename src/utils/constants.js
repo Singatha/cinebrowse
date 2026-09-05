@@ -2,7 +2,25 @@ export const SLIDER_SETTINGS = {
     infinite: true,
     speed: 500,
     slidesToShow: 7,
-    slidesToScroll: 7
+    slidesToScroll: 7,
+    responsive: [
+        {
+            breakpoint: 1200,
+            settings: { slidesToShow: 5, slidesToScroll: 5 },
+        },
+        {
+            breakpoint: 900,
+            settings: { slidesToShow: 4, slidesToScroll: 4 },
+        },
+        {
+            breakpoint: 700,
+            settings: { slidesToShow: 3, slidesToScroll: 3 },
+        },
+        {
+            breakpoint: 480,
+            settings: { slidesToShow: 2, slidesToScroll: 2 },
+        },
+    ],
 };
 
 export const PARAM_NAMES = {

@@ -1,34 +1,39 @@
-import { Link } from "react-router-dom"
-import { useDispatch } from "react-redux"
-import { setDisplaySearchResults, setSearchString } from "../features/media/mediaSlice"
-import { useState } from "react"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
+import { useEffect, useState } from "react"
 import PropTypes from 'prop-types'
 
 const Navbar = ({ className }) => {
-    const [inputValue, setInputValue] = useState('')
-    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [searchParams] = useSearchParams()
+    const query = searchParams.get('q') ?? ''
+    const [inputValue, setInputValue] = useState(query)
 
+    useEffect(() => {
+        setInputValue(query)
+    }, [query])
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        dispatch(setDisplaySearchResults(true))
-        dispatch(setSearchString(inputValue))
+        const trimmedSearch = inputValue.trim()
+
+        if (trimmedSearch) {
+            navigate(`/search?q=${encodeURIComponent(trimmedSearch)}`)
+        }
     }
     
     return (
-        <div className={className === '' ? `navbar`: `navbar navbar--${className}`}>
+        <nav className={className ? `navbar navbar--${className}` : 'navbar'} aria-label="Main navigation">
             <div className="navbar__link-wrapper">
                 <Link className="navbar__link navbar__link--hovered" to="/">Home</Link>
                 <Link className="navbar__link navbar__link--hovered" to="/list/tv">TV Series</Link>
                 <Link className="navbar__link navbar__link--hovered" to="/list/movies">Movies</Link>
-                <Link className="navbar__link navbar__link--hovered" to="/list/favourite-movies">Favourite Movies</Link>
-                <Link className="navbar__link navbar__link--hovered" to="/list/favourite-tv-series">Favourite TV Series</Link>
             </div>
             <form className="navbar__form" onSubmit={handleSubmit}>
-                <input className="navbar__input navbar__input--focused" type="text" placeholder="Search Movie or TV Series" onChange={(e) => setInputValue(e.target.value)} />
-                <button className="navbar__btn navbar__btn--hovered">Search</button>
+                <label className="visually-hidden" htmlFor="media-search">Search for a movie or TV series</label>
+                <input id="media-search" className="navbar__input navbar__input--focused" type="search" placeholder="Search Movie or TV Series" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+                <button className="navbar__btn navbar__btn--hovered" type="submit">Search</button>
             </form>
-        </div>
+        </nav>
     )
 }
 

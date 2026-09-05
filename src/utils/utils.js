@@ -1,39 +1,22 @@
 import { GENRES } from "./constants"
 
 export const formatGenresByID = (genre_ids) => {
-  let genres = ''
-  genre_ids.map((id, index) => {
-    if (index === 0){
-      genres += `${GENRES[id]}`
-    } else {
-      genres += `, ${GENRES[id]}`
-    }
-  })
-  return genres
+  return (genre_ids ?? []).map((id) => GENRES[id]).filter(Boolean).join(', ')
 }
 
 export const formatGenresByName = (genres) => {
-  let genresConcat = ''
-  genres.map((genre, index) => {
-    if (index === 0){
-      genresConcat += `${genre.name}`
-    } else {
-      genresConcat += `, ${genre.name}`
-    }
-  })
-  return genresConcat
+  return (genres ?? []).map((genre) => genre.name).filter(Boolean).join(', ')
 }
 
 export const formatTime = (time) => {
-  let hours = Math.floor(time/60)
-  let minutes = time % 60
-  let format = ''
-
-  if (time <= 60){
-    format = `${time}min`
-  } else {
-    format = `${hours}h ${minutes}min`
+  if (!Number.isFinite(time) || time <= 0) {
+    return 'Not available'
   }
 
-  return format
+  const hours = Math.floor(time / 60)
+  const minutes = time % 60
+
+  if (hours === 0) return `${minutes}min`
+  if (minutes === 0) return `${hours}h`
+  return `${hours}h ${minutes}min`
 }

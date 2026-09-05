@@ -1,6 +1,7 @@
 .navbar {
     background-color: $color-mirage-default;
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     justify-content: space-between;
     padding: 20px;
@@ -31,6 +32,12 @@
         }
     }
 
+    &__form {
+        display: flex;
+        max-width: 400px;
+        width: 100%;
+    }
+
     &__input {
         border: 1px solid $color-white;
         border-top-left-radius: 6px;
@@ -38,7 +45,8 @@
         font-family: $font-family;
         font-size: 16px;
         padding: 9px;
-        width: 300px;
+        min-width: 0;
+        width: 100%;
 
         &--focused:focus {
             outline: 2px solid $color-fountain-blue-900;
@@ -60,6 +68,31 @@
             background-color: #FFF;
             border: 2px solid $color-fountain-blue-900;
             color: $color-fountain-blue-900;
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .navbar {
+        align-items: stretch;
+        flex-direction: column;
+
+        &--overlay {
+            position: relative;
+        }
+
+        &__link-wrapper {
+            align-self: stretch;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        &__link {
+            font-size: 14px;
+        }
+
+        &__form {
+            margin: 0 auto;
         }
     }
 }

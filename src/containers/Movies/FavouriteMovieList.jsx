@@ -1,20 +1,7 @@
-import { useGetFavouriteMoviesByAccountIDQuery } from "../../services/media"
-import Error from "../../components/Error"
-import Loading from "../../components/Loading"
-import MediaList from "../MediaList"
+import NoResults from "../../components/NoResults"
 
 const FavouriteMovieList = () => {
-    const { data, error, isLoading } = useGetFavouriteMoviesByAccountIDQuery();
-
-    if (error){
-        return <Error error={error} />
-    } else if (isLoading){
-        return <Loading/>
-    } else {
-        return (
-            <MediaList data={data} isSlider={false} mediaType="movies" />
-        )
-    }
+    return <NoResults message="Favourite movies will be available after account sign-in is implemented." />
 }
 
 export default FavouriteMovieList

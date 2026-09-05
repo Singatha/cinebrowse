@@ -6,6 +6,27 @@ import Slider from "react-slick"
 import { SLIDER_SETTINGS } from "../utils/constants"
 
 const MediaList = ({ data, isSlider, mediaType }) => {
+    const results = (data?.results ?? []).filter((media) => {
+        const resultType = mediaType ?? media.media_type
+        return resultType === 'movies' || resultType === 'movie' || resultType === 'tv'
+    })
+
+    const renderMedia = (media) => {
+        const resultType = mediaType ?? media.media_type
+        const routeType = resultType === 'movie' ? 'movies' : resultType
+
+        return (
+            <div className="media-list__item" key={`${resultType}-${media.id}`}>
+                <Link className="media-list__link" to={`/${routeType}/${media.id}`}>
+                    <MediaCard media={media} />
+                </Link>
+            </div>
+        )
+    }
+
+    if (results.length === 0) {
+        return <NoResults />
+    }
 
     return (
         <>
@@ -13,17 +34,7 @@ const MediaList = ({ data, isSlider, mediaType }) => {
                 !isSlider ? (
                     <div className="media-list__content">
                         {
-                            data.results ? (
-                                data.results.map((media) => {
-                                    return (
-                                        <div className="media-list__item" key={media.id}>
-                                            <Link className="media-list__link" to={`/${mediaType}/${media.id}`}>
-                                                <MediaCard media={media} mediaType={mediaType} />
-                                            </Link>
-                                        </div>
-                                    )
-                                })
-                            ) : (<NoResults />)
+                            results.map(renderMedia)
                         }
                     </div>
                 ):
@@ -31,17 +42,7 @@ const MediaList = ({ data, isSlider, mediaType }) => {
                     <div className="media-list__slider">
                         <Slider {...SLIDER_SETTINGS}>
                             {
-                                data.results ? (
-                                    data.results.map((media) => {
-                                        return (
-                                            <div className="media-list__item" key={media.id}>
-                                                <Link className="media-list__link" to={`/${mediaType}/${media.id}`}>
-                                                    <MediaCard media={media} mediaType={mediaType} />
-                                                </Link>
-                                            </div>
-                                        )
-                                    })    
-                                ) : (<NoResults />)
+                                results.map(renderMedia)
                             }
                         </Slider>
                     </div>
@@ -52,7 +53,9 @@ const MediaList = ({ data, isSlider, mediaType }) => {
 }
 
 MediaList.propTypes = {
-    data: PropTypes.object,
+    data: PropTypes.shape({
+        results: PropTypes.array,
+    }),
     isSlider: PropTypes.bool,
     mediaType: PropTypes.string,
 }

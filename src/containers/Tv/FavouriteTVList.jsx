@@ -1,20 +1,7 @@
-import { useGetFavouriteTVByAccountIDQuery } from "../../services/media"
-import Error from "../../components/Error"
-import Loading from "../../components/Loading"
-import MediaList from "../MediaList"
+import NoResults from "../../components/NoResults"
 
 const FavouriteTVList = () => {
-    const { data, error, isLoading } = useGetFavouriteTVByAccountIDQuery();
-
-    if (error){
-        return <Error error={error} />
-    } else if (isLoading){
-        return <Loading/>
-    } else {
-        return (
-            <MediaList data={data} isSlider={false} mediaType="tv" />
-        )
-    }
+    return <NoResults message="Favourite TV series will be available after account sign-in is implemented." />
 }
 
 export default FavouriteTVList

@@ -22,6 +22,16 @@ Install dependencies
   npm install
 ```
 
+Create a local environment file and add your TMDB API key
+
+```bash
+  cp .env.example .env
+```
+
+```env
+VITE_MOVIE_API_KEY=your_tmdb_api_key
+```
+
 Start the server
 
 ```bash
@@ -41,13 +51,13 @@ Start the server
 
 ## Roadmap
 
-- List favourite movies and tv series
+- Add TMDB account authentication
 
-- Add favourite and tv series
+- Add and list favourite movies and TV series
 
-- Add responsiveness
+- Add pagination or infinite scrolling
 
-- Experiment with sass mixins
+- Add automated tests
 
 
 
@@ -57,6 +67,5 @@ Start the server
 What did you learn while building this project?
  - Redux toolkit
  - Redux Query toolkit
-
 
 

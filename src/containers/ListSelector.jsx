@@ -5,12 +5,12 @@ import FavouriteMovieList from "./Movies/FavouriteMovieList"
 import FavouriteTVList from "./Tv/FavouriteTVList"
 import { PARAM_NAMES } from '../utils/constants' 
 
-const ListSelector = ({ listName }) => {
+const ListSelector = ({ listName, page, onPageChange }) => {
     switch (listName){
         case PARAM_NAMES.TV:
-            return <TVList />
+            return <TVList page={page} onPageChange={onPageChange} />
         case PARAM_NAMES.MOVIES:
-            return <MovieList />
+            return <MovieList page={page} onPageChange={onPageChange} />
         case PARAM_NAMES.FAVOURITE_MOVIES:
             return <FavouriteMovieList />
         case PARAM_NAMES.FAVOURITE_TV_SERIES:
@@ -22,6 +22,8 @@ const ListSelector = ({ listName }) => {
 
 ListSelector.propTypes = {
     listName: PropTypes.string,
+    page: PropTypes.number,
+    onPageChange: PropTypes.func,
 }
 
 export default ListSelector

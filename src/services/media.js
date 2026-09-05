@@ -7,7 +7,10 @@ export const mediaApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://api.themoviedb.org/3/' }),
   endpoints: (builder) => ({
     getMovie: builder.query({
-      query: () => `discover/movie?api_key=${API_KEY}`,
+      query: (page = 1) => ({
+        url: 'discover/movie',
+        params: { page, api_key: API_KEY },
+      }),
     }),
     getMovieByID: builder.query({
       query: (movieID) => `movie/${movieID}?api_key=${API_KEY}`,
@@ -16,7 +19,10 @@ export const mediaApi = createApi({
       query: (accountID) => `account/${accountID}/favourite/movies?api_key=${API_KEY}`,
     }),
     getTV: builder.query({
-      query: () => `discover/tv?api_key=${API_KEY}`,
+      query: (page = 1) => ({
+        url: 'discover/tv',
+        params: { page, api_key: API_KEY },
+      }),
     }),
     getTVByID: builder.query({
       query: (tvID) => `tv/${tvID}?api_key=${API_KEY}`,
@@ -40,9 +46,9 @@ export const mediaApi = createApi({
       query: (tvID) => `tv/${tvID}/similar?api_key=${API_KEY}`,
     }),
     getSearchMulti: builder.query({
-      query: (keyword) => ({
+      query: ({ keyword, page = 1 }) => ({
         url: 'search/multi',
-        params: { query: keyword, api_key: API_KEY },
+        params: { query: keyword, page, api_key: API_KEY },
       }),
     }),
   }),

@@ -26,6 +26,7 @@ describe('mediaApi', () => {
 
         return HttpResponse.json({
           receivedQuery: url.searchParams.get('query'),
+          receivedPage: url.searchParams.get('page'),
         })
       }),
     )
@@ -33,9 +34,10 @@ describe('mediaApi', () => {
     stores.push(store)
 
     const result = await store.dispatch(
-      mediaApi.endpoints.getSearchMulti.initiate('star wars & beyond'),
+      mediaApi.endpoints.getSearchMulti.initiate({ keyword: 'star wars & beyond', page: 3 }),
     ).unwrap()
 
     expect(result.receivedQuery).toBe('star wars & beyond')
+    expect(result.receivedPage).toBe('3')
   })
 })

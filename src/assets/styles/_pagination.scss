@@ -1,0 +1,45 @@
+@use 'base' as *;
+
+.pagination-nav {
+    align-items: center;
+    background-color: $color-bunting-default;
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    padding: 30px 20px 45px;
+
+    &__button {
+        background-color: $color-fountain-blue-900;
+        border: 2px solid $color-fountain-blue-900;
+        border-radius: 6px;
+        color: $color-white;
+        min-width: 100px;
+        padding: 9px 16px;
+
+        &:hover:not(:disabled), &:focus-visible {
+            background-color: $color-white;
+            color: $color-fountain-blue-900;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.45;
+        }
+    }
+
+    &__status {
+        color: $color-white;
+        font-family: $font-family;
+    }
+}
+
+@media (max-width: 420px) {
+    .pagination-nav {
+        gap: 10px;
+
+        &__button {
+            min-width: 84px;
+            padding: 8px 10px;
+        }
+    }
+}

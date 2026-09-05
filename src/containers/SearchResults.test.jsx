@@ -16,6 +16,7 @@ describe('SearchResults', () => {
   it('links movie and TV results to the correct detail routes and ignores people', () => {
     useGetSearchMultiQuery.mockReturnValue({
       data: {
+        total_pages: 5,
         results: [
           { id: 1, media_type: 'movie', title: 'A Movie', poster_path: '/movie.jpg', genre_ids: [28] },
           { id: 2, media_type: 'tv', name: 'A Series', poster_path: '/tv.jpg', genre_ids: [18] },
@@ -27,15 +28,16 @@ describe('SearchResults', () => {
     })
 
     render(
-      <MemoryRouter initialEntries={['/search?q=star%20wars']}>
+      <MemoryRouter initialEntries={['/search?q=star%20wars&page=3']}>
         <SearchResults />
       </MemoryRouter>,
     )
 
-    expect(useGetSearchMultiQuery).toHaveBeenCalledWith('star wars', { skip: false })
+    expect(useGetSearchMultiQuery).toHaveBeenCalledWith({ keyword: 'star wars', page: 3 }, { skip: false })
     expect(screen.getByText('A Movie').closest('a')).toHaveAttribute('href', '/movies/1')
     expect(screen.getByText('A Series').closest('a')).toHaveAttribute('href', '/tv/2')
     expect(screen.queryByText('An Actor')).not.toBeInTheDocument()
+    expect(screen.getByText('Page 3 of 5')).toBeInTheDocument()
   })
 
   it('shows an empty state when the query has no results', () => {
@@ -59,7 +61,7 @@ describe('SearchResults', () => {
       </MemoryRouter>,
     )
 
-    expect(useGetSearchMultiQuery).toHaveBeenCalledWith('', { skip: true })
+    expect(useGetSearchMultiQuery).toHaveBeenCalledWith({ keyword: '', page: 1 }, { skip: true })
     expect(screen.getByText(/enter a movie or TV series/i)).toBeInTheDocument()
   })
 })

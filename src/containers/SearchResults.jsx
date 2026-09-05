@@ -1,14 +1,15 @@
 import { useGetSearchMultiQuery } from "../services/media"
-import { useSearchParams } from "react-router-dom"
 import Error from "../components/Error"
 import Loading from "../components/Loading"
 import MediaList from "./MediaList"
 import NoResults from "../components/NoResults"
+import Pagination from "../components/Pagination"
+import { useUrlPage } from "../hooks/useUrlPage"
 
 const SearchResults = () => {
-    const [searchParams] = useSearchParams()
+    const { page, searchParams, setPage } = useUrlPage()
     const searchString = (searchParams.get('q') ?? '').trim()
-    const { data, error, isLoading } = useGetSearchMultiQuery(searchString, {
+    const { data, error, isLoading } = useGetSearchMultiQuery({ keyword: searchString, page }, {
         skip: !searchString,
     })
 
@@ -21,9 +22,10 @@ const SearchResults = () => {
     } else if (isLoading){
         return <Loading />
     } else {
-        return (
+        return (<>
             <MediaList data={data} isSlider={false} />
-        )
+            <Pagination currentPage={page} totalPages={data.total_pages} onPageChange={setPage} />
+        </>)
     }
 }
 

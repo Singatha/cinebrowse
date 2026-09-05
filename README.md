@@ -4,6 +4,8 @@ A movie website that showcases movies and tv series.
 
 ## Run Locally
 
+This project requires Node.js 22.12 or newer. If you use `nvm`, run `nvm use` in the project directory.
+
 Clone the project
 
 ```bash
@@ -75,4 +77,3 @@ Use `npm run test:watch` while developing.
 What did you learn while building this project?
  - Redux toolkit
  - Redux Query toolkit
-

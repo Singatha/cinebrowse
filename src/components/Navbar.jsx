@@ -1,20 +1,15 @@
 import { Link, useNavigate, useSearchParams } from "react-router-dom"
-import { useEffect, useState } from "react"
 import PropTypes from 'prop-types'
 
 const Navbar = ({ className }) => {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
     const query = searchParams.get('q') ?? ''
-    const [inputValue, setInputValue] = useState(query)
-
-    useEffect(() => {
-        setInputValue(query)
-    }, [query])
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        const trimmedSearch = inputValue.trim()
+        const formData = new FormData(event.currentTarget)
+        const trimmedSearch = formData.get('query').trim()
 
         if (trimmedSearch) {
             navigate(`/search?q=${encodeURIComponent(trimmedSearch)}`)
@@ -30,7 +25,7 @@ const Navbar = ({ className }) => {
             </div>
             <form className="navbar__form" onSubmit={handleSubmit}>
                 <label className="visually-hidden" htmlFor="media-search">Search for a movie or TV series</label>
-                <input id="media-search" className="navbar__input navbar__input--focused" type="search" placeholder="Search Movie or TV Series" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+                <input key={query} id="media-search" name="query" className="navbar__input navbar__input--focused" type="search" placeholder="Search Movie or TV Series" defaultValue={query} />
                 <button className="navbar__btn navbar__btn--hovered" type="submit">Search</button>
             </form>
         </nav>

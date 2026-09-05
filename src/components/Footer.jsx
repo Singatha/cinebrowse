@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
-import { ReactComponent as FacebookIcon } from "../assets/images/icons/facebook.svg"
-import { ReactComponent as TwitterIcon } from "../assets/images/icons/twitter.svg"
-import { ReactComponent as InstagramIcon } from "../assets/images/icons/instagram.svg"
+import FacebookIcon from "../assets/images/icons/facebook.svg?react"
+import TwitterIcon from "../assets/images/icons/twitter.svg?react"
+import InstagramIcon from "../assets/images/icons/instagram.svg?react"
 
 const Footer = () => {
 

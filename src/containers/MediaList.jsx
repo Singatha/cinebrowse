@@ -2,8 +2,10 @@ import { Link } from "react-router-dom"
 import MediaCard from "../components/MediaCard"
 import NoResults from "../components/NoResults"
 import PropTypes from 'prop-types'
-import Slider from "react-slick"
+import ReactSlick from "react-slick"
 import { SLIDER_SETTINGS } from "../utils/constants"
+
+const Slider = ReactSlick.default ?? ReactSlick
 
 const MediaList = ({ data, isSlider, mediaType }) => {
     const results = (data?.results ?? []).filter((media) => {

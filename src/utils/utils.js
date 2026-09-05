@@ -8,6 +8,19 @@ export const formatGenresByName = (genres) => {
   return (genres ?? []).map((genre) => genre.name).filter(Boolean).join(', ')
 }
 
+export const formatDate = (date) => {
+  if (!date) return 'Not available'
+
+  const parsedDate = new Date(`${date}T00:00:00Z`)
+
+  if (Number.isNaN(parsedDate.getTime())) return 'Not available'
+
+  return new Intl.DateTimeFormat('en-US', {
+    dateStyle: 'medium',
+    timeZone: 'UTC',
+  }).format(parsedDate)
+}
+
 export const formatTime = (time) => {
   if (!Number.isFinite(time) || time <= 0) {
     return 'Not available'

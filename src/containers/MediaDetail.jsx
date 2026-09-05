@@ -4,8 +4,7 @@ import { useParams } from "react-router-dom"
 import { useGetMovieByIDQuery, useGetTVByIDQuery } from "../services/media"
 import Error from "../components/Error"
 import Loading from "../components/Loading"
-import { formatTime, formatGenresByName } from "../utils/utils"
-import moment from "moment"
+import { formatDate, formatTime, formatGenresByName } from "../utils/utils"
 import SimilarTv from "./Tv/SimilarTv"
 import SimilarMovies from "./Movies/SimilarMovies"
 
@@ -18,9 +17,7 @@ const MediaDetail = () => {
 
   const releaseDate = data?.first_air_date || data?.release_date
   const runtime = data?.runtime ?? data?.episode_run_time?.[0]
-  const formattedDate = releaseDate && moment(releaseDate).isValid()
-    ? moment(releaseDate).format('ll')
-    : 'Not available'
+  const formattedDate = formatDate(releaseDate)
   
   if (error){
     return <Error error={error} />
